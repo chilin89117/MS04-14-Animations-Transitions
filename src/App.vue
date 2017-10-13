@@ -6,17 +6,37 @@
         <hr>
         <button class="btn btn-primary" @click="show=!show">Show Alert</button>
         <br><br>
-        <transition name="fade">
-          <!-- Only with 1 element -->
-          <div class="alert alert-info" v-if="show">This div will fade in and out.</div>
-        </transition>
+
+        <!-- Choose type of animation -->
+        <div class="form-group">
+          <label for="sel">Select an animation for first div:</label>
+          <select id="sel" v-model="alertAnimation" class="form-control">
+            <option value="fade">Fade</option>
+            <option value="slide">Slide</option>
+          </select>
+        </div>
         <br><br>
+
+        <transition :name="alertAnimation">
+          <!-- Only with 1 element -->
+          <div class="alert alert-info" v-if="show">This div will fade OR slide in and out.</div>
+        </transition>
 
         <!-- When using both 'transition' and 'animation'... -->
         <!-- ...add 'type=' to tell Vue which duration to use -->
         <transition name="slide" type="animation">
-          <!-- Only with 1 element -->
-          <div class="alert alert-danger" v-if="show">This div will slide/fade in and out.</div>
+          <div class="alert alert-danger" v-if="show">This div will slide AND fade in and out.</div>
+        </transition>
+
+        <!-- Use 'appear' attribute to begin animation when initially attached to the DOM -->
+        <transition name="fade" appear>
+          <div class="alert alert-success" v-if="show">This div will animate with loading DOM</div>
+        </transition>
+
+        <!-- Override default classes with 'animate.css' -->
+        <transition enter-class="" enter-active-class="animated slideInLeft"
+                    leave-class="" leave-active-class="animated zoomOut" appear>
+          <div class="alert alert-warning" v-if="show">This div has default classes overridden.</div>
         </transition>
 
       </div>
@@ -28,7 +48,8 @@
   export default {
     data() {
       return {
-        show: false,
+        show: true,
+        alertAnimation: 'fade',
       };
     },
   };
