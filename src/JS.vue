@@ -57,7 +57,7 @@
           if(i > this.rounds) {
             this.finalWidth = this.startWidth + (i - 1) * 10;
             clearInterval(this.grow);
-            done();   // Needed because there's no CSS timing to tell Vue when animation is done
+            done();   // Needed because there's no CSS timing to tell Vue when animation is done (especially if there's asynchronous code)
           }
         }, 50);
       },
@@ -83,7 +83,7 @@
           j++;
           if(j > this.rounds) {
             clearInterval(this.shrink);
-            done();   // Needed because there's no CSS timing to tell Vue when animation is done
+            done();   // (see 'enter()' above)
           }
         }, 50);
       },

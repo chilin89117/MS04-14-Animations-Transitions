@@ -39,9 +39,10 @@
           <div class="alert alert-warning" v-if="show">DIV 4 has 'Animate.CSS' overriding default classes.</div>
         </transition>
 
-        <!-- Alternate between 2 elements - use 'key=' to identify each -->
-        <!-- Use 'mode=' to 'out-in' or 'in-out' -->
+        <!-- Alternate between 2 elements -->
+        <!-- Set 'mode=' to 'out-in' or 'in-out' -->
         <!-- Use 'v-if' and 'v-else' because 'v-show' will not work here -->
+        <!-- Use 'key=' to differentiate the <div> elements their classes -->
         <transition :name="alertAnimation" mode="out-in" appear>
           <div class="alert alert-success" v-if="show" key="success">DIV 5a will alternate with DIV 5b.</div>
           <div class="alert alert-danger" v-else key="danger">DIV 5b will alternate with DIV 5a.</div>
@@ -106,7 +107,7 @@
   }
 
   .slide-leave {
-
+    opacity: 1;   /* Not necessary because it's the default */
   }
 
   .slide-leave-active {

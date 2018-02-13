@@ -18,15 +18,10 @@
         <h2>Transition Group</h2>
         <button class="btn btn-primary" @click="addItem">Add Item</button>
         <br><br>
-        <ul class="list-group">
-
-          <transition-group name="slide">
-
-            <li class="list-group-item" v-for="(number, index) in numbers"
-                :key="number" @click="removeItem(index)">{{number}}</li>
-
-          </transition-group>
-        </ul>
+        <transition-group name="slide" class="list-group" tag="ul">
+          <li class="list-group-item" v-for="(number, index) in numbers"
+              :key="index" @click="removeItem(index)">{{number}}</li>
+        </transition-group>
       </div>
     </div>
   </div>
@@ -54,11 +49,15 @@
       addItem() {
         // Randomly find a position within current list
         const pos = Math.floor(Math.random() * this.numbers.length);
-        // Add a new number
-        this.numbers.splice(pos, 0, this.numbers.length + 1);
+        // Add a new number that's 1 higher than current max
+        this.numbers.splice(pos, 0, Math.max(...this.numbers) + 1);
+        console.log('add', this.numbers)
       },
       removeItem(index) {
-        this.numbers.splice(index, 1);
+        if(this.numbers.length > 1) {
+          this.numbers.splice(index, 1);
+          console.log('remove', this.numbers)
+        }
       },
     },
   };
